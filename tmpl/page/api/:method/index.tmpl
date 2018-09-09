@@ -1,0 +1,6 @@
+{{ $m := param "method" -}}
+{{ $q := get "code" -}}
+{{ $c := api_map $m $q -}}
+{{ .SetContentType "application/json" -}}
+{{ .SetLayout "blank" -}}
+{{$c | json}}

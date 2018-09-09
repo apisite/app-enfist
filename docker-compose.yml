@@ -1,0 +1,32 @@
+version: '2.1'
+
+services:
+
+  app:
+    image: ${DC_IMAGE}
+    command:
+      ./apisite --db_debug --db_schema rpc --http_addr :8080
+    networks:
+      - web
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=${APP_SITE}"
+      - "traefik.frontend.rule=Host:${APP_SITE}"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - PGHOST=db
+      - PGDATABASE=${PGDATABASE}
+      - PGUSER=${PGUSER}
+      - PGPASSWORD=${PGPASSWORD}
+      - PGAPPNAME=${PGAPPNAME}
+      - PGSSLMODE=${PGSSLMODE}
+    build:
+      context: .
+
+networks:
+  web:
+    external:
+      name: ${DCAPE_NET}

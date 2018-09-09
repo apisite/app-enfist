@@ -1,0 +1,100 @@
+{{ .SetTitle "File index"}}
+{{ $q := .Request.URL.Query }}
+{{ $mask := $q.Get "mask" -}}
+{{ $sort := .Request.URL.Query.Get "sort" -}}
+{{ $lim := .Request.URL.Query.Get "lim" -}}
+{{ $off := .Request.URL.Query.Get "off" -}}
+<form>
+  <div class="row">
+    <div class="small-10 small-offset-1 columns">
+      <div class="row">
+        <div class="small-1 columns">
+          <label for="mask" class="right inline">Mask</label>{{/* TODO: get column names from func result?*/}}
+        </div>
+        <div class="small-2 columns">
+          <input type="text" id="mask"  name="mask" value="{{ $mask }}">
+        </div>
+        <div class="small-1 columns">
+          <label for="sort" class="right inline">Sort</label>
+        </div>
+        <div class="small-3 columns">
+          <select id="sort" name="sort">
+            <option value="">Tag (default)
+            <option value="1"{{ if eq "1" $sort }} selected{{ end }}>Tag-</option>
+            <option value="2"{{ if eq "2" $sort }} selected{{ end }}>Updated, Tag</option>
+            <option value="3"{{ if eq "3" $sort }} selected{{ end }}>Updated, Tag-</option>
+            <option value="4"{{ if eq "4" $sort }} selected{{ end }}>Updated-, Tag</option>
+            <option value="5"{{ if eq "5" $sort }} selected{{ end }}>Updated-, Tag-</option>
+          </select>
+        </div>
+        <div class="small-1 columns">
+          <label for="lim" class="right inline">Rows</label>
+        </div>
+        <div class="small-2 columns inline">
+          <select id="lim" name="lim">
+            <option value="25">25 (default)
+            <option value="50"{{ if eq "50" $lim }} selected{{ end }}>50
+            <option value="100"{{ if eq "100" $lim }} selected{{ end }}>100
+            <option value="500"{{ if eq "100" $lim }} selected{{ end }}>500
+        	</select>
+        </div>
+        <div class="small-1 columns">
+          <input type = "submit" value="Show" class="button tiny">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>
+
+{{ $args := get "mask" "sort" "lim" "off" -}}{{/* get map without empty args */}}
+{{ $rows := api_map "tag" $args -}}
+{{ $row_count := api_map "tag_count" $args -}}
+<div class="row">
+  <div class="small-6  small-centered columns">
+    <form action="env">
+    <table>
+     <thead>
+        <tr>
+          <th width="400">Tag</th>
+          <th width="160">Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range $rows}}
+          <tr>
+            <td><a href="/env?code={{ .code }}">{{ .code }}</a></td>
+            <td>{{ .updated_at.Format "02.01.2006 15:04" }}</td>
+          </tr>
+        {{end}}
+          <tr>
+            <td><input type="text" name="code"></td>
+            <td><input type = "submit" value="Create" class="button tiny"></td>
+          </tr>
+      </tbody>
+    </table>
+    </form>
+    <div class="small-6 small-centered  columns">
+      <small>Show {{add 1 (atoi $off 0)}}..{{ add (atoi $off 0) (len $rows) }} of {{ $row_count }}</small>
+    </div>
+
+    {{$pages := pager $q $row_count "" 25 2 2 -}}
+    {{if gt (len $pages) 2 }}
+      <div class="pagination-centered">
+        <ul class="pagination">
+          {{range $pages }}
+            {{if .IsPrev }}
+              <li class="arrow{{ if not .Allowed }} unavailable{{end}}"><a href="{{.Href}}">&laquo;</a></li>
+            {{else if .IsNext }}
+              <li class="arrow{{ if not .Allowed }} unavailable{{end}}"><a href="{{.Href}}">&raquo;</a></li>
+            {{else if eq .ID 0 }}
+              <li class="unavailable"><a href="">&hellip;</a></li>
+            {{else}}
+              <li{{ if not .Allowed }} class="current"{{end}}><a href="{{.Href}}">{{.ID}}</a></li>
+            {{end}}
+          {{end}}
+        </ul>
+      </div>
+    {{end}}
+  </div>
+</div>

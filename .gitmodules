@@ -1,0 +1,9 @@
+[submodule "sql/poma"]
+	path = sql/poma
+	url = https://github.com/pomasql/poma.git
+[submodule "sql/rpc"]
+	path = sql/rpc
+	url = https://github.com/pomasql/rpc.git
+[submodule "sql/enfist"]
+	path = sql/enfist
+	url = https://github.com/pomasql/enfist.git

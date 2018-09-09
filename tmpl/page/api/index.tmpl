@@ -1,0 +1,43 @@
+{{ $q := .Request.URL.Query }}
+{{ $nsp := item $q "nsp" }}
+{{ $rows := api "index" "nsp" $nsp}}
+{{ $t := "API methods" }}
+{{ .SetTitle $t }}
+<h1>{{ $t }}</h1>
+<div class="row">
+  <div class="small-12  small-centered columns">
+<table>
+ <thead>
+    <tr>
+      <th>Code</th>
+      <th>Args</th>
+      <th>Result</th>
+      <th>Read-only</th>
+      <th>Set of rows</th>
+      <th>Struct</th>
+      <th>Namespace</th>
+      <th>Function</th>
+      <th>Anno</th>
+    </tr>
+  </thead>
+  <tbody>
+{{ range $rows }}
+<tr>
+  <td>{{ .code }}</td>
+  <td><a href="/api/func_args?code={{.code}}">args</a></td>
+  <td>{{ if and .result (not .is_struct) }}
+    {{ .result }}{{ else }}
+    <a href="/api/func_result/?code={{.code}}">{{ if .result }}{{.result}}{{ else }}[struct]</a></td>{{ end -}}
+{{end}}
+  <td>{{ bool .is_ro }}</td>
+  <td>{{ bool .is_set }}</td>
+  <td>{{ bool .is_struct }}</td>
+  <td>{{ .nspname }}</td>
+  <td>{{ .proname }}</td>
+  <td>{{ .anno }}</td>
+</tr>
+{{end}}
+</tbody>
+</table>
+</div>
+</div>
