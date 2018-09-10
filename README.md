@@ -14,6 +14,18 @@
 [gl1]: https://img.shields.io/github/license/apisite/app-enfist.svg
 [gl2]: LICENSE
 
+## Install
+
+```
+git clone --depth=1 --recursive https://github.com/apisite/app-enfist.git
+cd app-enfist
+make config
+[edit .env, changу API_SITE]
+make poma-install
+make poma-create
+make up
+```
+
 ## Update from pgrpc version
 
 ```
