@@ -7,7 +7,7 @@ PRG           ?= $(shell basename $$PWD)
 # -----------------------------------------------------------------------------
 # Runtime data
 
-API_SITE      ?= $(PRG).dev.lan
+APP_SITE      ?= $(PRG).dev.lan
 
 PGDATABASE    ?= $(PRG)
 PGUSER        ?= $(PRG)
@@ -49,8 +49,11 @@ DCAPE_NET     ?= dcape_default
 # Дополнения файла .env
 define CONFIG_DEFAULT
 
-# Dcape site
-API_SITE=$(API_SITE)
+# dcape site
+APP_SITE=$(APP_SITE)
+
+# dcape net
+DCAPE_NET=$(DCAPE_NET)
 
 endef
 export CONFIG_DEFAULT
