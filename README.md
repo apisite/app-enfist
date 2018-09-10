@@ -20,9 +20,9 @@
 git clone --depth=1 --recursive https://github.com/apisite/app-enfist.git
 cd app-enfist
 make config
-[edit .env, changу API_SITE]
-make poma-install
-make poma-create
+[edit .env, set PGHOST=db and API_SITE]
+make docker-db-create
+make docker-install-poma
 make up
 ```
 

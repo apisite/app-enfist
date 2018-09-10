@@ -11,7 +11,7 @@ MAINTAINER Aleksey Kovrizhkin <lekovr+apisite@gmail.com>
 
 ENV DOCKERFILE_VERSION  180909
 
-RUN apk --update add curl make coreutils diffutils gawk git openssl musl-dev bash
+RUN apk --update add curl make coreutils diffutils gawk git openssl postgresql-client bash
 
 WORKDIR /opt/apisite
 
@@ -25,4 +25,4 @@ COPY Makefile .
 # apisite default port
 EXPOSE 8080
 
-ENTRYPOINT ["/opt/apisite/apisite"]
+CMD ["/opt/apisite/apisite"]

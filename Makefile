@@ -125,16 +125,19 @@ clean-docker:
 
 # ------------------------------------------------------------------------------
 
+docker-install-poma:
+	$(MAKE) -s dc CMD="run cmd make clean poma-install poma-create"
+
 # $$PWD используется для того, чтобы текущий каталог был доступен в контейнере по тому же пути
 # и относительные тома новых контейнеров могли его использовать
 ## run docker-compose
 dc: docker-compose.yml
 	@docker run --rm  -i \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v $$PWD:$$PWD \
-  -w $$PWD \
-  --env=DC_IMAGE=$(DC_IMAGE) \
-  docker/compose:$(DC_VER) \
-  -p $(PRG) \
-  $(CMD)
+	  -v /var/run/docker.sock:/var/run/docker.sock \
+	  -v $$PWD:$$PWD \
+	  -w $$PWD \
+	  --env=DC_IMAGE=$(DC_IMAGE) \
+	  docker/compose:$(DC_VER) \
+	  -p $(PRG) \
+	  $(CMD)
 

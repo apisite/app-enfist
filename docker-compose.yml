@@ -17,14 +17,25 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     environment:
-      - PGHOST=db
+      - PGHOST=${PGHOST}
       - PGDATABASE=${PGDATABASE}
       - PGUSER=${PGUSER}
       - PGPASSWORD=${PGPASSWORD}
-      - PGAPPNAME=${PGAPPNAME}
       - PGSSLMODE=${PGSSLMODE}
+      - PGAPPNAME=${PGAPPNAME}
     build:
       context: .
+
+  cmd:
+    image: ${DC_IMAGE}
+    environment:
+      - PGHOST=${PGHOST}
+      - PGDATABASE=${PGDATABASE}
+      - PGUSER=${PGUSER}
+      - PGPASSWORD=${PGPASSWORD}
+      - PGSSLMODE=${PGSSLMODE}
+    networks:
+      - web
 
 networks:
   web:
