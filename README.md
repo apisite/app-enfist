@@ -5,11 +5,20 @@
  [![GitHub code size in bytes][sz]]()
  [![GitHub license][gl1]][gl2]
 
-[gr1]: https://img.shields.io/github/release/apisite/app-enfist.svg
+[gr1]: https://img.shields.io/github/release/apisite/app-enfist/all.svg
 [gr2]: https://github.com/apisite/app-enfist/releases
 [sz]: https://img.shields.io/github/languages/code-size/apisite/app-enfist.svg
 [gl1]: https://img.shields.io/github/license/apisite/app-enfist.svg
 [gl2]: LICENSE
+
+This application is intended to use within [dcape](https://github.com/dopos/dcape) project as storage for config files with web frontend.
+It uses [apisite](https://github.com/apisite/apisite) binary and contains only sql and html/js code.
+
+Also this project may be considered as apisite example application which demonstrates:
+
+* template includes
+* API interface & docs
+* API calls from templates & javascript
 
 ## Install
 
