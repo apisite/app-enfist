@@ -2,10 +2,11 @@ version: '2.1'
 
 services:
 
+  # Run service locally from current directory
   app:
     image: ${DC_IMAGE}
     command:
-      ./apisite --db_debug --db_schema rpc --http_addr :8080
+      /usr/bin/apisite --db_debug --db_schema rpc --http_addr :8080
     networks:
       - web
     restart: always
@@ -16,6 +17,7 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
+      - .:/opt/apisite
     environment:
       - PGHOST=${PGHOST}
       - PGDATABASE=${PGDATABASE}
@@ -23,11 +25,10 @@ services:
       - PGPASSWORD=${PGPASSWORD}
       - PGSSLMODE=${PGSSLMODE}
       - PGAPPNAME=${PGAPPNAME}
-    build:
-      context: .
 
-  cmd:
-    image: ${DC_IMAGE}
+  # Used for docker image with all sources
+  dist:
+    image: ${PRG}:${VERSION}
     environment:
       - PGHOST=${PGHOST}
       - PGDATABASE=${PGDATABASE}
@@ -36,6 +37,8 @@ services:
       - PGSSLMODE=${PGSSLMODE}
     networks:
       - web
+    build:
+      context: .
 
 networks:
   web:

@@ -36,12 +36,11 @@
             <option value="50"{{ if eq "50" $lim }} selected{{ end }}>50
             <option value="100"{{ if eq "100" $lim }} selected{{ end }}>100
             <option value="500"{{ if eq "100" $lim }} selected{{ end }}>500
-        	</select>
+          </select>
         </div>
         <div class="small-1 columns">
           <input type = "submit" value="Show" class="button tiny">
         </div>
-
       </div>
     </div>
   </div>
@@ -63,7 +62,7 @@
       <tbody>
         {{range $rows}}
           <tr>
-            <td><a href="/env?code={{ .code }}">{{ .code }}</a></td>
+            <td><a href="env?code={{ .code }}">{{ .code }}</a></td>
             <td>{{ .updated_at.Format "02.01.2006 15:04" }}</td>
           </tr>
         {{end}}

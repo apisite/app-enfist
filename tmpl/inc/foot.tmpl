@@ -1,3 +1,10 @@
-<hr><a href="/">Home</a> | <a href="/api">API</a>
-{{range $element := .JS }}<script src="/js/{{ $element }}"></script>
+<hr>
+{{ if eq .URI "api/" -}}
+<a href="../">Home</a> | <a>API</a>
+{{ else if eq .URI "env" -}}
+<a href="index.html">Home</a> | <a href="api/">API</a>
+{{ else -}}
+<a>Home</a> | <a href="api/">API</a>
+{{end}}
+{{range $element := .JS }}<script src="js/{{ $element }}"></script>
 {{ end }}

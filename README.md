@@ -20,24 +20,75 @@ Also this project may be considered as apisite example application which demonst
 * API interface & docs
 * API calls from templates & javascript
 
-## Install
+## Installation
+
+This app uses postgresql so you need one of:
+
+* postgresql server
+* running postgresql container
+* [dcape](https://github.com/dopos/dcape) installed
+
+In the first case you should create db and user by yourself, in others - use `make docker-db-create`
+
+Also this app requires [apisite](https://github.com/apisite/apisite) binary which you can get by the following ways:
+
+* make from sources (see install teps [here](https://github.com/apisite/apisite/blob/master/Dockerfile))
+* use apisite/apisite docker image
+* use apisite/enfist docker image (includes app-enfist sources and all dependensies)
+
+All cases except last require app-enfist sources which might be fetched via git:
 
 ```
 git clone --depth=1 --recursive https://github.com/apisite/app-enfist.git
 cd app-enfist
+```
+
+To create default config file (named .env) use
+```
 make config
-# [edit .env: set PGHOST=db and API_SITE]
+```
+
+If dcape used, set `PGHOST=db` and `API_SITE=your.hostname` in this file
+
+
+Create db and user when postgresql runned in docker container:
+```
 make docker-db-create
-make build-docker
-make docker-install-poma
-make -s dc CMD="run cmd make poma-create"
+```
+
+Install app-enfist from sources:
+```
+make poma-install
+```
+
+Install app-enfist from apisite/enfist docker image:
+```
+docker run enfist make poma-install
+```
+
+## Usage
+
+### Locally
+
+```
+make deps-local
+make run-local
+```
+
+### Via dcape
+
+```
 make up
 ```
 
-## Update from pgrpc version
+### Via docker
+
+See docker-compose.yml
+
+### Prepare docker image for remote dcape server
 
 ```
-insert into pers.enfist_tag select * from env.tag;
+make build-dist
 ```
 
 ## TODO

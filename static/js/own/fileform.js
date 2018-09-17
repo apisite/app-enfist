@@ -60,7 +60,7 @@ function call(f, method, args, onSuccess) {
   disable_form(f, true);
   console.log('Call '+ method);
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', '/rpc/' + method, true);
+  xhr.open('POST', 'rpc/' + method, true);
   xhr.onreadystatechange = function() { // (3)
     if (xhr.readyState != 4) return;
     console.log('Done');

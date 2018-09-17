@@ -37,7 +37,7 @@ allpak        ?= rpc enfist
 DC_SERVICE    ?= app
 
 # Generated docker image
-DC_IMAGE      ?= $(PRG)
+DC_IMAGE      ?= apisite/apisite:0.5
 
 # docker-compose version
 DC_VER        ?= 1.14.0
@@ -81,9 +81,13 @@ help:
 clean: poma-clean
 
 # ------------------------------------------------------------------------------
+## get binary for local use
+deps-local:
+	go get github.com/apisite/apisite
+	go install github.com/apisite/apisite
 
 ## run standalone application
-run:
+run-local:
 	apisite --db_debug --db_schema rpc
 
 # ------------------------------------------------------------------------------
@@ -119,27 +123,31 @@ build-docker:
 	@$(MAKE) -s dc CMD="build --force-rm $(DC_SERVICE)"
 
 ## Build docker image without cache
-build-docker-forcer:
+build-docker-forced:
 	@$(MAKE) -s dc CMD="build --no-cache --force-rm $(DC_SERVICE)"
 
-# Remove docker image & temp files
+## Remove docker image & temp files
 clean-docker:
 	[[ "$$($(DOCKER_BIN) images -q $(DC_IMAGE) 2> /dev/null)" == "" ]] || $(DOCKER_BIN) rmi $(DC_IMAGE)
 
-# ------------------------------------------------------------------------------
+## Build docker image for distribution
+build-dist: DC_SERVICE=dist
+build-dist: build-docker
 
-docker-install-poma:
-	$(MAKE) -s dc CMD="run cmd make clean poma-install poma-create"
+# ------------------------------------------------------------------------------
 
 # $$PWD используется для того, чтобы текущий каталог был доступен в контейнере по тому же пути
 # и относительные тома новых контейнеров могли его использовать
 ## run docker-compose
 dc: docker-compose.yml
-	@docker run --rm  -i \
+	@VERSION="$$(git describe --tags)" ; \
+	docker run --rm  -i \
 	  -v /var/run/docker.sock:/var/run/docker.sock \
 	  -v $$PWD:$$PWD \
 	  -w $$PWD \
 	  --env=DC_IMAGE=$(DC_IMAGE) \
+	  --env=PRG=$(PRG) \
+	  --env=VERSION=$$VERSION \
 	  docker/compose:$(DC_VER) \
 	  -p $(PRG) \
 	  $(CMD)

@@ -24,10 +24,10 @@
 {{ range $rows }}
 <tr>
   <td>{{ .code }}</td>
-  <td><a href="/api/func_args?code={{.code}}">args</a></td>
+  <td><a href="func_args/?code={{.code}}">args</a></td>
   <td>{{ if and .result (not .is_struct) }}
     {{ .result }}{{ else }}
-    <a href="/api/func_result/?code={{.code}}">{{ if .result }}{{.result}}{{ else }}[struct]</a></td>{{ end -}}
+    <a href="func_result/?code={{.code}}">{{ if .result }}{{.result}}{{ else }}[struct]</a></td>{{ end -}}
 {{end}}
   <td>{{ bool .is_ro }}</td>
   <td>{{ bool .is_set }}</td>
