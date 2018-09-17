@@ -32,7 +32,7 @@ In the first case you should create db and user by yourself, in others - use `ma
 
 Also this app requires [apisite](https://github.com/apisite/apisite) binary which you can get by the following ways:
 
-* make from sources (see install teps [here](https://github.com/apisite/apisite/blob/master/Dockerfile))
+* make from sources (see install steps [here](https://github.com/apisite/apisite/blob/master/Dockerfile))
 * use apisite/apisite docker image
 * use apisite/enfist docker image (includes app-enfist sources and all dependensies)
 
