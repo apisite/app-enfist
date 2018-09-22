@@ -1,10 +1,15 @@
 <hr>
-{{ if eq .URI "api/" -}}
-<a href="../">Home</a> | <a>API</a>
-{{ else if eq .URI "env" -}}
-<a href="index.html">Home</a> | <a href="api/">API</a>
-{{ else -}}
-<a>Home</a> | <a href="api/">API</a>
-{{end}}
+<div class="row">
+	<div class="small-6 columns">
+		{{ if eq .URI "api/" -}}
+		<a href="../">Home</a> | API
+		{{ else -}}
+		<a href="index.html">Home</a> | <a href="api/">API</a>
+		{{end}}
+	</div>
+	<div class="small-6 columns text-right">
+    <a href="https://github.com/apisite/app-enfist">EnFiSt v0.4</a>
+  </div>
+</div>
 {{range $element := .JS }}<script src="js/{{ $element }}"></script>
 {{ end }}

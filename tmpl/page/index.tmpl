@@ -1,12 +1,13 @@
-{{ .SetTitle "File index"}}
+{{ .SetTitle "enfist"}}
 {{ $q := .Request.URL.Query }}
 {{ $mask := $q.Get "mask" -}}
 {{ $sort := .Request.URL.Query.Get "sort" -}}
 {{ $lim := .Request.URL.Query.Get "lim" -}}
 {{ $off := .Request.URL.Query.Get "off" -}}
 <form>
-  <div class="row">
-    <div class="small-10 small-offset-1 columns">
+<div class="row">
+  <div class="small-8 small-centered columns">
+    <h1>Environment files</h1>
       <div class="row">
         <div class="small-1 columns">
           <label for="mask" class="right inline">Mask</label>{{/* TODO: get column names from func result?*/}}
@@ -30,7 +31,7 @@
         <div class="small-1 columns">
           <label for="lim" class="right inline">Rows</label>
         </div>
-        <div class="small-2 columns inline">
+        <div class="small-3 columns inline">
           <select id="lim" name="lim">
             <option value="25">25 (default)
             <option value="50"{{ if eq "50" $lim }} selected{{ end }}>50
@@ -44,13 +45,13 @@
       </div>
     </div>
   </div>
+</div>
 </form>
-
 {{ $args := get "mask" "sort" "lim" "off" -}}{{/* get map without empty args */}}
 {{ $rows := api_map "tag" $args -}}
 {{ $row_count := api_map "tag_count" $args -}}
 <div class="row">
-  <div class="small-6  small-centered columns">
+  <div class="small-6 small-centered columns">
     <form action="env">
     <table>
      <thead>
@@ -73,27 +74,29 @@
       </tbody>
     </table>
     </form>
-    <div class="small-6 small-centered  columns">
-      <small>Show {{add 1 (atoi $off 0)}}..{{ add (atoi $off 0) (len $rows) }} of {{ $row_count }}</small>
+    <div class="row small-12 text-right columns">
+      <small>Row(s) {{add 1 (atoi $off 0)}}..{{ add (atoi $off 0) (len $rows) }} of {{ $row_count }}</small>
     </div>
-
+  </div>
+</div>
+<div class="row">
+  <div class="small-6 small-centered columns">
     {{$pages := pager $q $row_count "" 25 2 2 -}}
     {{if gt (len $pages) 2 }}
-      <div class="pagination-centered">
-        <ul class="pagination">
-          {{range $pages }}
-            {{if .IsPrev }}
-              <li class="arrow{{ if not .Allowed }} unavailable{{end}}"><a href="{{.Href}}">&laquo;</a></li>
-            {{else if .IsNext }}
-              <li class="arrow{{ if not .Allowed }} unavailable{{end}}"><a href="{{.Href}}">&raquo;</a></li>
-            {{else if eq .ID 0 }}
-              <li class="unavailable"><a href="">&hellip;</a></li>
-            {{else}}
-              <li{{ if not .Allowed }} class="current"{{end}}><a href="{{.Href}}">{{.ID}}</a></li>
-            {{end}}
+      <ul class="pagination">
+        {{range $pages }}
+          {{if and .IsPrev }}
+            <li class="arrow">{{ if .Allowed }}<a href="{{.Href}}">{{else}}<a>{{end}}&laquo;</a></li>
+          {{else if .IsNext }}
+            <li class="arrow">{{ if .Allowed }}<a href="{{.Href}}">{{else}}<a>{{end}}&raquo;</a></li>
+          {{else if eq .ID 0 }}
+            <li class="unavailable"><a href="">&hellip;</a></li>
+          {{else}}
+            <li{{ if not .Allowed }} class="current">{{.ID}}{{else}}><a href="{{.Href}}">{{.ID}}</a>{{end}}</li>
           {{end}}
-        </ul>
-      </div>
+        {{end}}
+      </ul>
     {{end}}
   </div>
 </div>
+
