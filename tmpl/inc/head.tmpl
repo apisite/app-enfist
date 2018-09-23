@@ -2,7 +2,9 @@
     Page <head> block
 
 */ -}}
-<title>{{ if .Title }}{{.Title}} --{{ end }} {{ .Request.Host }}</title>
+{{ $fh := .Request.Header.Get "X-Forwarded-Host" }}
+{{ $rh := .Request.Host }}
+<title>{{ if .Title }}{{.Title}} -- {{ end }}{{ or $fh $rh }}</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="//cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css" rel='stylesheet' type='text/css'>

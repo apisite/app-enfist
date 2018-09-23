@@ -1,0 +1,4 @@
+{{/*
+    Showed rows numbers
+*/ -}}
+<small>Row{{ if gt (len .rows) 1}}s {{add 1 (atoi .off 0)}}..{{ else }} {{ end }}{{ add (atoi .off 0) (len .rows) }} of {{ .count }}</small>

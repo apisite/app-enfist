@@ -1,0 +1,15 @@
+    {{if gt (len .) 2 }}
+      <ul class="pagination">
+        {{range . }}
+          {{if and .IsPrev }}
+            <li class="arrow">{{ if .Allowed }}<a href="{{.Href}}">{{else}}<a>{{end}}&laquo;</a></li>
+          {{else if .IsNext }}
+            <li class="arrow">{{ if .Allowed }}<a href="{{.Href}}">{{else}}<a>{{end}}&raquo;</a></li>
+          {{else if eq .ID 0 }}
+            <li class="unavailable"><a href="">&hellip;</a></li>
+          {{else}}
+            <li{{ if not .Allowed }} class="current">{{.ID}}{{else}}><a href="{{.Href}}">{{.ID}}</a>{{end}}</li>
+          {{end}}
+        {{end}}
+      </ul>
+    {{end}}
