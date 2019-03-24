@@ -90,6 +90,10 @@ deps-local:
 run-local:
 	apisite --db_debug --db_schema rpc
 
+run:
+	PGHOST=${PGHOST} PGDATABASE=${PGDATABASE} PGUSER=${PGUSER} PGPASSWORD=${PGPASSWORD} \
+	./apisite --db.schema rpc --http_addr :8080
+
 # ------------------------------------------------------------------------------
 # Misc
 define TEST_FILE

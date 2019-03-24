@@ -1,14 +1,14 @@
 <hr>
 <div class="row">
 	<div class="small-6 columns">
-		{{ if eq .URI "api/" -}}
+		{{ if eq request.URL.String "/api/" -}}
 		<a href="../">Home</a> | API
 		{{ else -}}
-		<a href="index.html">Home</a> | <a href="api/">API</a>
+		<a href="/">Home</a> | <a href="api/">API</a>
 		{{end}}
 	</div>
 	<div class="small-6 columns text-right">
-		<a href="https://github.com/apisite/app-enfist">EnFiSt</a> v0.5
+		<a href="https://github.com/apisite/app-enfist">EnFiSt</a> {{version}}
 	</div>
 </div>
 {{range $element := .JS }}<script src="js/{{ $element }}"></script>

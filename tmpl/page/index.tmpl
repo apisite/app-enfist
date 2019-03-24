@@ -1,9 +1,9 @@
 {{ .SetTitle "enfist"}}
-{{ $q := .Request.URL.Query }}
+{{ $q := request.URL.Query }}
 {{ $mask := $q.Get "mask" -}}
-{{ $sort := .Request.URL.Query.Get "sort" -}}
-{{ $lim := .Request.URL.Query.Get "lim" -}}
-{{ $off := .Request.URL.Query.Get "off" -}}
+{{ $sort := request.URL.Query.Get "sort" -}}
+{{ $lim := request.URL.Query.Get "lim" -}}
+{{ $off := request.URL.Query.Get "off" -}}
 <form>
 <div class="row">
   <div class="small-8 small-centered columns">
@@ -75,14 +75,14 @@
     </table>
     </form>
     <div class="row small-12 text-right columns">
-      {{template "table_rows.tmpl" makeMap "rows" $rows "off" $off "count" $row_count}}
+      {{template "table_rows" makeMap "rows" $rows "off" $off "count" $row_count}}
     </div>
   </div>
 </div>
 <div class="row">
   <div class="small-6 small-centered columns">
     {{$pages := pager $q $row_count "" 25 2 2 -}}
-    {{template "table_pager.tmpl" $pages}}
+    {{template "table_pager" $pages}}
   </div>
 </div>
 

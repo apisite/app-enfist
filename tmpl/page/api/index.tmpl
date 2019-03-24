@@ -1,4 +1,4 @@
-{{ $q := .Request.URL.Query }}
+{{ $q := request.URL.Query }}
 {{ $nsp := item $q "nsp" }}
 {{ $rows := api "index" "nsp" $nsp}}
 {{ $t := "API methods" }}

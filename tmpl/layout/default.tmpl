@@ -5,10 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {{ template "head.tmpl" . -}}
+{{ if .Error }}{{ .Error | printf "Ошибка %d: %s" .Status | .SetTitle }}{{ end}}
+    {{ template "head" . -}}
 </head>
 <body style="padding:20px">
-    {{ .Content -}}
-    {{ template "foot.tmpl" . -}}
+    {{ if .Error }}{{ .Error }}
+    {{ else}}{{ content | HTML -}}
+    {{ end -}}
+    {{ template "foot" . -}}
 </body>
 </html>

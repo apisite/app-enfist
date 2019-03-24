@@ -2,8 +2,8 @@
     Page <head> block
 
 */ -}}
-{{ $fh := .Request.Header.Get "X-Forwarded-Host" }}
-{{ $rh := .Request.Host }}
+{{ $fh := request.Header.Get "X-Forwarded-Host" }}
+{{ $rh := request.Host }}
 <title>{{ if .Title }}{{.Title}} -- {{ end }}{{ or $fh $rh }}</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
