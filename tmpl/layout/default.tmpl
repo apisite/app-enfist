@@ -5,11 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-{{ if .Error }}{{ .Error | printf "Ошибка %d: %s" .Status | .SetTitle }}{{ end}}
+{{ if .Error }}{{ if not .Title }}{{ printf "Ошибка %d: ой" .Status | .SetTitle }}{{ end }}{{ end }}
     {{ template "head" . -}}
 </head>
 <body style="padding:20px">
-    {{ if .Error }}{{ .Error }}
+    {{ if .Error }}{{ .ErrorMessage }}
     {{ else}}{{ content | HTML -}}
     {{ end -}}
     {{ template "foot" . -}}

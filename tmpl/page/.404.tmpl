@@ -1,0 +1,2 @@
+{{ .SetTitle "404. Page not found" }}
+{{ request.URL.String | printf "Страница '%s' не найдена" | .Raise 404 true }}
