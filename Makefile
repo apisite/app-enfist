@@ -37,10 +37,10 @@ allpak        ?= rpc enfist
 DC_SERVICE    ?= app
 
 # Generated docker image
-DC_IMAGE      ?= apisite/apisite:0.5
+DC_IMAGE      ?= apisite/apisite:0.6
 
 # docker-compose version
-DC_VER        ?= 1.14.0
+DC_VER        ?= 1.23.2
 
 # dcape network connect to, must be set in .env
 DCAPE_NET     ?= dcape_default

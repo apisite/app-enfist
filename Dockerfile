@@ -1,8 +1,8 @@
-FROM apisite/apisite:0.5
+FROM apisite/apisite:0.6
 
-MAINTAINER Aleksey Kovrizhkin <lekovr+apisite@gmail.com>
+MAINTAINER Aleksei Kovrizhkin <lekovr+apisite@gmail.com>
 
-ENV DOCKERFILE_VERSION  180917
+ENV DOCKERFILE_VERSION  190327
 
 COPY sql sql
 COPY tmpl tmpl
