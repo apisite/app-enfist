@@ -97,3 +97,33 @@ function disable_elements(elements, state) {
   }
 }
 
+// return true if at least one of elems has not default value
+function is_changed(elems) {
+  for (i = 0; i < elems.length; i++) {
+    if (elems[i].value != elems[i].defaultValue) return true;
+  }
+  return false;
+}
+
+// textarea onChange event handler
+// code from https://stackoverflow.com/a/14029861/5199825
+function handle_changes(ids) {
+  var elems = new(Array);
+  for (i = 0; i < ids.length; i++) {
+    var area = document.getElementById(ids[i]);
+    elems[i] = area;
+    if (area.addEventListener) {
+      area.addEventListener('input', function() {
+        // event handling code for sane browsers
+        var state = area.value != area.defaultValue;
+        changed(is_changed(elems));
+      }, false);
+    } else if (area.attachEvent) {
+      area.attachEvent('onpropertychange', function() {
+        // IE-specific event handling code
+        var state = area.value != area.defaultValue;
+        changed(is_changed(elems));
+      });
+    }
+  }
+}
