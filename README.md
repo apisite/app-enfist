@@ -12,7 +12,7 @@
 [gl2]: LICENSE
 
 This application is intended to use within [dcape](https://github.com/dopos/dcape) project as storage for config files with web frontend.
-It uses [apisite](https://github.com/apisite/apisite) binary and contains only sql and html/js code.
+It uses [apisite](https://github.com/apisite/apisite) binary and contains only sql and html|js code.
 
 Also this project may be considered as apisite example application which demonstrates:
 
@@ -66,6 +66,9 @@ Install app-enfist from apisite/enfist docker image:
 docker run enfist make poma-install
 ```
 
+See also:
+* [dcape Makefile](https://github.com/dopos/dcape/blob/master/apps/enfist/Makefile) - installing enfist within dcape
+
 ## Usage
 
 ### Locally
@@ -83,7 +86,7 @@ make up
 
 ### Via docker
 
-See docker-compose.yml
+See [docker-compose.yml](docker-compose.yml)
 
 ### Prepare docker image for remote dcape server
 
@@ -94,8 +97,6 @@ make build-dist
 ## TODO
 
 * [ ] set/get index form fields via cookies
-* [ ] solve `<nil>` output in templates
-
 
 ## License
 
