@@ -92,7 +92,7 @@ run-local:
 
 run:
 	PGHOST=${PGHOST} PGDATABASE=${PGDATABASE} PGUSER=${PGUSER} PGPASSWORD=${PGPASSWORD} \
-	./apisite --db.schema rpc --http_addr :8080
+	./apisite --http_addr :8080
 
 # ------------------------------------------------------------------------------
 # Misc
