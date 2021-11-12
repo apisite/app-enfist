@@ -37,7 +37,7 @@ allpak        ?= rpc enfist
 DC_SERVICE    ?= app
 
 # Generated docker image
-DC_IMAGE      ?= apisite/apisite:0.6
+DC_IMAGE      ?= apisite/apisite:0.6.2
 
 # docker-compose version
 DC_VER        ?= 1.23.2
@@ -92,7 +92,7 @@ run-local:
 
 run:
 	PGHOST=${PGHOST} PGDATABASE=${PGDATABASE} PGUSER=${PGUSER} PGPASSWORD=${PGPASSWORD} \
-	./apisite --http_addr :8080
+	./apisite --http_addr :8080 --api.schema=rpc
 
 # ------------------------------------------------------------------------------
 # Misc
