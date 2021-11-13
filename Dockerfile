@@ -1,8 +1,8 @@
-FROM apisite/apisite:0.6.1
+FROM ghcr.io/apisite/apisite:0.6.4
 
 MAINTAINER Aleksei Kovrizhkin <lekovr+apisite@gmail.com>
 
-ENV DOCKERFILE_VERSION  191107
+ENV DOCKERFILE_VERSION  211113
 
 COPY sql sql
 COPY tmpl tmpl
