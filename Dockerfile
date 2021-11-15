@@ -1,5 +1,5 @@
 #FROM apisite/apisite:0.6.1
-FROM ghcr.io/apisite/apisite:v0.6.10
+FROM ghcr.io/apisite/apisite:v0.6.11
 
 MAINTAINER Aleksei Kovrizhkin <lekovr+apisite@gmail.com>
 
