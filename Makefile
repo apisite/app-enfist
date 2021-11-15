@@ -37,8 +37,7 @@ allpak        ?= rpc enfist
 DC_SERVICE    ?= app
 
 # Generated docker image
-DC_IMAGE      ?= apisite/apisite:0.6
-
+DC_IMAGE      ?= ghcr.io/apisite/apisite:v0.6.10
 # docker-compose version
 DC_VER        ?= 1.23.2
 
